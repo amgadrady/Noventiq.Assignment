@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization;
 
 namespace Noventiq.Assignment
 {
@@ -60,7 +54,7 @@ namespace Noventiq.Assignment
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.json", "Noventiq v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Noventiq v1"));
             }
             else
             {

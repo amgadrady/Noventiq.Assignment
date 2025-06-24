@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NoventiqAssignment.DB.Context;
+﻿using NoventiqAssignment.DB.Context;
 using NoventiqAssignment.Repository;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoventiqAssignment.UnitOfWork
 {
