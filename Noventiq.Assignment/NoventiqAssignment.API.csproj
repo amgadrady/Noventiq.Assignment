@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Scrutor" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.17" />
@@ -20,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NoventiqAssignment.DB\NoventiqAssignment.DB.csproj" />
+    <ProjectReference Include="..\NoventiqAssignment.Services\NoventiqAssignment.Services.csproj" />
+    <ProjectReference Include="..\NoventiqAssignment.UnitOfWork\NoventiqAssignment.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

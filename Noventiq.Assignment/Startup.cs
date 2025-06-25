@@ -31,6 +31,8 @@ namespace Noventiq.Assignment
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<NoventiqContext>()
                         .AddDefaultTokenProviders();
+
+            services.AddMedsultoServices(Configuration);
             services.AddSwaggerGen(swagger =>
             {
                 var jwtSecurityScheme = new OpenApiSecurityScheme
