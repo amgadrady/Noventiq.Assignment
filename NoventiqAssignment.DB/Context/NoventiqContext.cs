@@ -16,8 +16,8 @@ namespace NoventiqAssignment.DB.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>(entity =>
             {
-               
-               
+
+
                 entity.Property(e => e.FirstName).HasMaxLength(150);
                 entity.Property(e => e.LastName).HasMaxLength(150);
             });

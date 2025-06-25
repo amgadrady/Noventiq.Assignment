@@ -17,39 +17,102 @@ namespace NoventiqAssignment.Services
             this.roleManager = roleManager;
             this.tokenService = tokenService;
         }
+
         public async Task<GenericResponseModel<LoginResponseDTO>> Login(LoginDTO loginDTO)
         {
-            GenericResponseModel<LoginResponseDTO> responseModel = new ();
+            var responseModel = new GenericResponseModel<LoginResponseDTO>();
+
             var user = await userManager.FindByEmailAsync(loginDTO.Email);
-            if (user != null && await userManager.CheckPasswordAsync(user, loginDTO.Password))
+            if (user == null || !await userManager.CheckPasswordAsync(user, loginDTO.Password))
             {
-                var userRoles = await userManager.GetRolesAsync(user);
-
-                var token =  tokenService.CreateAccessToken(user, userRoles);
-
-                responseModel.Data = new LoginResponseDTO
-                {
-                    userId = user.Id,
-                    email = user.Email??string.Empty,
-                    token = token,
-                    fullName = user.UserName?? string.Empty,
-                  
-                };  
-            }
-            else {
-
-                responseModel.Message = "Invalid Login Data";
-                responseModel.ErrorList = new List<ErrorListModel>
-                {
-                    new ErrorListModel
-                    {
-                        Id = 1,
-                        Message = "Invalid Email or Password"
-                    }
-                };
+                return GenericResponseModel<LoginResponseDTO>.ErrorResponse("Invalid Email or Password");
             }
 
-                return responseModel;
+            var userRoles = await userManager.GetRolesAsync(user);
+            var token = tokenService.CreateAccessToken(user, userRoles);
+
+            responseModel.Data = new LoginResponseDTO
+            {
+                UserId = user.Id,
+                Email = user.Email ?? string.Empty,
+                Token = token,
+                FullName = user.UserName ?? string.Empty,
+            };
+
+            return responseModel;
+        }
+
+
+
+        public async Task<GenericResponseModel<NewRoleResponseDTO>> CreateRole(NewRoleDTO newRoleDTO)
+        {
+            var responseModel = new GenericResponseModel<NewRoleResponseDTO>();
+
+
+            if (await roleManager.RoleExistsAsync(newRoleDTO.Name))
+            {
+                return GenericResponseModel<NewRoleResponseDTO>.ErrorResponse("Role already exists");
+            }
+
+
+            var createResult = await roleManager.CreateAsync(new ApplicationRole
+            {
+                Name = newRoleDTO.Name,
+                Description = newRoleDTO.Description
+            });
+
+            if (!createResult.Succeeded)
+            {
+                return GenericResponseModel<NewRoleResponseDTO>.ErrorResponse("Failed to create the role");
+            }
+
+
+            var createdRole = await roleManager.FindByNameAsync(newRoleDTO.Name);
+
+            responseModel.Data = new NewRoleResponseDTO
+            {
+                Id = createdRole.Id,
+                Name = createdRole.Name,
+                Description = createdRole.Description
+            };
+
+            return responseModel;
+        }
+
+        public async Task<GenericResponseModel<StatusMessageReturnDTO>> AssignUserToRole(AssignRoleDTO assignRoleDto)
+        {
+            var responseModel = new GenericResponseModel<StatusMessageReturnDTO>();
+
+            if (!await roleManager.RoleExistsAsync(assignRoleDto.RoleName))
+            {
+                return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus("Invalid Role");
+
+            }
+
+            var user = await userManager.FindByIdAsync(assignRoleDto.UserId);
+            if (user == null)
+            {
+                return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus("Invalid User");
+
+            }
+
+            if (await userManager.IsInRoleAsync(user, assignRoleDto.RoleName))
+            {
+                return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus("User already has the role");
+            }
+
+            var result = await userManager.AddToRoleAsync(user, assignRoleDto.RoleName);
+
+            if (result.Succeeded)
+            {
+                responseModel.Data.Status = true;
+            }
+            else
+            {
+                return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus("Failed to assign user to role");
+            }
+
+            return responseModel;
         }
     }
 }

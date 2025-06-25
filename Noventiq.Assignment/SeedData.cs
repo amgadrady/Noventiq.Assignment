@@ -10,7 +10,7 @@ namespace NoventiqAssignment.API
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            
+
             string[] roleNames = { "Administrator", "User" };
             foreach (var roleName in roleNames)
             {
@@ -24,7 +24,7 @@ namespace NoventiqAssignment.API
                 }
             }
 
-            
+
             var adminEmail = "administrator@Noventiq.com";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)
@@ -36,7 +36,7 @@ namespace NoventiqAssignment.API
                     FirstName = "Admin1",
                     LastName = "User",
                     EmailConfirmed = true,
-                    CreatedDate= DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow
                 };
 
                 var result = await userManager.CreateAsync(adminUser, "Admin@123");

@@ -5,8 +5,6 @@ using Microsoft.OpenApi.Models;
 using NoventiqAssignment.API;
 using NoventiqAssignment.DB.Context;
 using NoventiqAssignment.DB.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace Noventiq.Assignment
 {
@@ -22,10 +20,10 @@ namespace Noventiq.Assignment
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddControllers();
-            services.AddDbContext< NoventiqContext>(
-                options=> options.UseSqlServer(
+            services.AddDbContext<NoventiqContext>(
+                options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
@@ -78,7 +76,7 @@ namespace Noventiq.Assignment
                 app.UseHsts();
             }
 
-             ApplyDatabaseMigrations(app);
+            ApplyDatabaseMigrations(app);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -93,7 +91,7 @@ namespace Noventiq.Assignment
             });
         }
 
-        private  void ApplyDatabaseMigrations(IApplicationBuilder app)
+        private void ApplyDatabaseMigrations(IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
@@ -101,9 +99,9 @@ namespace Noventiq.Assignment
                 try
                 {
                     var context = services.GetRequiredService<NoventiqContext>();
-                    context.Database.Migrate(); 
+                    context.Database.Migrate();
 
-                    
+
                     SeedData.Initialize(services).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)

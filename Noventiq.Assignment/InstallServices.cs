@@ -1,5 +1,4 @@
 ﻿using NoventiqAssignment.Services;
-using NoventiqAssignment.UnitOfWork;
 
 namespace NoventiqAssignment.API
 {

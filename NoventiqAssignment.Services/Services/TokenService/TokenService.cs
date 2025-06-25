@@ -10,7 +10,7 @@ namespace NoventiqAssignment.Services
     public class TokenService : ITokenService
     {
         private readonly IConfiguration Configuration;
-   
+
         public TokenService(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -18,12 +18,12 @@ namespace NoventiqAssignment.Services
 
         public string CreateAccessToken(ApplicationUser user, IList<string> userRoles)
         {
-            string TokenKey = Configuration.GetSection("Token:Key").Value?? string.Empty;
+            string TokenKey = Configuration.GetSection("Token:Key").Value ?? string.Empty;
 
             var claims = GetBasicClaims(user, userRoles);
-          
+
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenKey));
-            
+
 
             SigningCredentials creds = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512Signature);
 
