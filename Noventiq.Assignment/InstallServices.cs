@@ -1,4 +1,5 @@
 ﻿using NoventiqAssignment.Services;
+using NoventiqAssignment.UnitOfWork;
 
 namespace NoventiqAssignment.API
 {
@@ -12,6 +13,12 @@ namespace NoventiqAssignment.API
                  .AsImplementedInterfaces()
                  .WithScopedLifetime()
              );
+            services.Scan(selector =>
+             selector.FromAssemblies((typeof(IUnitOfWork).Assembly))
+             .AddClasses(s => s.InNamespaceOf<IUnitOfWork>())
+             .AsImplementedInterfaces()
+             .WithScopedLifetime()
+         );
             services.AddHttpContextAccessor();
         }
 

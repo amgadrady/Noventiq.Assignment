@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NoventiqAssignment.DB\NoventiqAssignment.DB.csproj" />
+    <ProjectReference Include="..\NoventiqAssignment.UnitOfWork\NoventiqAssignment.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

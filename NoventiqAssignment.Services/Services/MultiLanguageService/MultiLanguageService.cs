@@ -17,7 +17,14 @@ namespace NoventiqAssignment.Services
 
             if (request.Headers.TryGetValue("Accept-Language", out var languageHeader))
             {
-                return languageHeader.ToString().Split(',').FirstOrDefault()?.Trim() ?? defaultLanguage;
+                var language = languageHeader.ToString().Split(',').FirstOrDefault()?.Trim();
+
+                
+                if (!string.IsNullOrEmpty(language))
+                {
+                    var primaryLanguage = language.Split('-')[0].ToLowerInvariant();
+                    return primaryLanguage;
+                }
             }
 
             return defaultLanguage;
