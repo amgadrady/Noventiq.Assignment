@@ -7,8 +7,7 @@ namespace NoventiqAssignment.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    //[Authorize(Roles = "Administrator")]
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "Administrator,User")]
     public class ProductController: ControllerBase
     {
         private readonly IProductService productService;

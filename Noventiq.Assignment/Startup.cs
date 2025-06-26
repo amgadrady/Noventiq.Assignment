@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NoventiqAssignment.API;
 using NoventiqAssignment.DB.Context;
 using NoventiqAssignment.DB.Models;
+using System.Text;
 
 namespace Noventiq.Assignment
 {
@@ -31,6 +33,27 @@ namespace Noventiq.Assignment
                         .AddDefaultTokenProviders();
 
             services.AddMedsultoServices(Configuration);
+
+            services.AddAuthentication(
+               option =>
+               {
+                   option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                   option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                   option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+               }
+               ).AddJwtBearer(options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                       .GetBytes(Configuration.GetSection("Token:Key").Value)),
+                       ValidateIssuer = false,
+                       ValidateAudience = false,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ClockSkew = TimeSpan.Zero
+                   };
+               });
             services.AddSwaggerGen(swagger =>
             {
                 var jwtSecurityScheme = new OpenApiSecurityScheme
