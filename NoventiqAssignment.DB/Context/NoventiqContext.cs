@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NoventiqAssignment.DB.Models;
+using static System.Net.WebRequestMethods;
 
 namespace NoventiqAssignment.DB.Context
 {
@@ -10,7 +11,8 @@ namespace NoventiqAssignment.DB.Context
         {
         }
 
-
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductTranslation> ProductTranslations { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

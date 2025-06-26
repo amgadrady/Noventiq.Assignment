@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NoventiqAssignment.DB.Context;
 
@@ -11,9 +12,11 @@ using NoventiqAssignment.DB.Context;
 namespace NoventiqAssignment.DB.Migrations
 {
     [DbContext(typeof(NoventiqContext))]
-    partial class NoventiqContextModelSnapshot : ModelSnapshot
+    [Migration("20250626124814_ProductTable")]
+    partial class ProductTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

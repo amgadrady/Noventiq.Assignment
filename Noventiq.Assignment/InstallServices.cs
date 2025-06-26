@@ -12,7 +12,7 @@ namespace NoventiqAssignment.API
                  .AsImplementedInterfaces()
                  .WithScopedLifetime()
              );
-
+            services.AddHttpContextAccessor();
         }
 
     }
