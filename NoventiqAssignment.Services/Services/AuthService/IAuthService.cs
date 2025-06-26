@@ -8,5 +8,6 @@ namespace NoventiqAssignment.Services
         Task<GenericResponseModel<LoginResponseDTO>> Login(LoginDTO loginDTO);
         Task<GenericResponseModel<NewRoleResponseDTO>> CreateRole(NewRoleDTO newRoleDTO);
         Task<GenericResponseModel<StatusMessageReturnDTO>> AssignUserToRole(AssignRoleDTO assignRoleDto);
+        Task<GenericResponseModel<StatusMessageReturnDTO>> SignUp(SignUpDTO signUpDTO);
     }
 }

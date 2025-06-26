@@ -114,5 +114,47 @@ namespace NoventiqAssignment.Services
 
             return responseModel;
         }
+
+        public async Task<GenericResponseModel<StatusMessageReturnDTO>> SignUp(SignUpDTO signUpDTO)
+        {
+            var responseModel = new GenericResponseModel<StatusMessageReturnDTO>();
+
+            var user = await userManager.FindByEmailAsync(signUpDTO.Email);
+            if (user != null)
+            {
+                return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus("User Mail Exist");
+
+            }
+
+            else
+            {
+                user = new ApplicationUser
+                {
+                    UserName = signUpDTO.Email,
+                    Email = signUpDTO.Email,
+                    FirstName = signUpDTO.FirstName,
+                    LastName = signUpDTO.LastName,
+                    EmailConfirmed = true,
+                    CreatedDate = DateTime.UtcNow
+                };
+
+                var result = await userManager.CreateAsync(user, signUpDTO.Password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, "User");
+                    responseModel.Data.Status = true;
+
+                }
+                else
+                {
+                    return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus("Error in User Creating");
+                }
+
+            }
+
+
+
+                return responseModel;
+        }
     }
 }
