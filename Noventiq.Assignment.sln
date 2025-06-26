@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36212.18 d17.14
+VisualStudioVersion = 17.14.36212.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoventiqAssignment.API", "Noventiq.Assignment\NoventiqAssignment.API.csproj", "{7611EC9B-A52D-45C3-9614-03D4A67C66FA}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoventiqAssignment.UnitOfWork", "NoventiqAssignment.UnitOfWork\NoventiqAssignment.UnitOfWork.csproj", "{D539F63F-471B-4539-9106-70D4865883D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoventiqAssignment.Repository", "NoventiqAssignment.Repository\NoventiqAssignment.Repository.csproj", "{901CF053-E1A9-42FC-B7FA-158AD65B9C46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoventiqAssignment.xUnit", "NoventiqAssignment.xUnit\NoventiqAssignment.xUnit.csproj", "{996D0008-FF9B-473E-861D-30C55805C8FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{901CF053-E1A9-42FC-B7FA-158AD65B9C46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{901CF053-E1A9-42FC-B7FA-158AD65B9C46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{901CF053-E1A9-42FC-B7FA-158AD65B9C46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{996D0008-FF9B-473E-861D-30C55805C8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{996D0008-FF9B-473E-861D-30C55805C8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{996D0008-FF9B-473E-861D-30C55805C8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{996D0008-FF9B-473E-861D-30C55805C8FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
