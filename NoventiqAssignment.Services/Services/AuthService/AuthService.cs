@@ -30,6 +30,7 @@ namespace NoventiqAssignment.Services
 
             var userRoles = await userManager.GetRolesAsync(user);
             var token = tokenService.CreateAccessToken(user, userRoles);
+            var refreshToken = tokenService.CreateRefreshToken(user.Id);
 
             responseModel.Data = new LoginResponseDTO
             {
@@ -37,12 +38,31 @@ namespace NoventiqAssignment.Services
                 Email = user.Email ?? string.Empty,
                 Token = token,
                 FullName = user.UserName ?? string.Empty,
+                RefreshToken= refreshToken
             };
 
             return responseModel;
         }
 
+       public async Task<GenericResponseModel<LoginResponseDTO>> RefreshTokenLogin(LoginDTO loginDTO)
+        {
+            var responseModel = new GenericResponseModel<LoginResponseDTO>();
 
+            var user = await userManager.FindByEmailAsync(loginDTO.Email);
+            var userRoles = await userManager.GetRolesAsync(user);
+            var token = tokenService.CreateAccessToken(user, userRoles);
+            var refreshToken = tokenService.CreateRefreshToken(user.Id);
+            responseModel.Data = new LoginResponseDTO
+            {
+                UserId = user.Id,
+                Email = user.Email ?? string.Empty,
+                Token = token,
+                FullName = user.UserName ?? string.Empty,
+                RefreshToken = refreshToken
+            };
+
+            return responseModel;
+        }
 
         public async Task<GenericResponseModel<NewRoleResponseDTO>> CreateRole(NewRoleDTO newRoleDTO)
         {

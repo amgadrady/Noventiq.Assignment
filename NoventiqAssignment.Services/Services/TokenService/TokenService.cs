@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using NoventiqAssignment.DB.Models;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -42,7 +43,34 @@ namespace NoventiqAssignment.Services
 
             return tokenHandler.WriteToken(token);
         }
+        public string CreateRefreshToken(string userId)
+        {
+            string TokenKey = Configuration.GetSection("Token:Key").Value ?? string.Empty;
 
+            Claim[] claims = new[]
+            {
+                    new Claim(ClaimTypes.NameIdentifier , userId.ToString(),"nameid"),
+                    new Claim(ClaimTypes.Role , "RefresfToken"),
+
+            };
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenKey));
+
+            SigningCredentials creds = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512Signature);
+
+            SecurityTokenDescriptor tokenDiscriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(claims),
+
+                Expires = DateTime.Now.AddDays(4),
+                SigningCredentials = creds
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken token = tokenHandler.CreateToken(tokenDiscriptor);
+
+
+            return tokenHandler.WriteToken(token);
+        }
         private List<Claim> GetBasicClaims(ApplicationUser user, IList<string> userRoles)
         {
 
