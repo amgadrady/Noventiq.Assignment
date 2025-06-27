@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NoventiqAssignment.DB.Models;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -49,14 +50,9 @@ namespace NoventiqAssignment.Services
             var userClaims = new List<Claim>()
             {
                     new Claim(ClaimTypes.NameIdentifier , user.Id.ToString(),"id"),
-
+                     new Claim(ClaimTypes.Role , userRoles[0])
 
             };
-
-            foreach (var role in userRoles)
-            {
-                userClaims.Add(new Claim(ClaimTypes.Role, role));
-            }
             return userClaims;
         }
     }

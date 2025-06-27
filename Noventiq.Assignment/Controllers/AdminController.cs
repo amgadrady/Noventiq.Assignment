@@ -8,7 +8,7 @@ namespace NoventiqAssignment.API.Controllers
 
     [ApiController]
     [Route("api/[controller]/[action]")]
-   [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class AdminController : ControllerBase
     {
         private readonly IAuthService authService;

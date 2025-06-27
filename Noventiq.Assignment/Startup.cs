@@ -51,7 +51,7 @@ namespace Noventiq.Assignment
                        ValidateAudience = false,
                        ValidateLifetime = true,
                        ValidateIssuerSigningKey = true,
-                       ClockSkew = TimeSpan.Zero
+                       ClockSkew = TimeSpan.Zero,
                    };
                });
             services.AddSwaggerGen(swagger =>
@@ -104,7 +104,7 @@ namespace Noventiq.Assignment
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
