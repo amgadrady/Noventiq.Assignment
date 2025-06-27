@@ -53,5 +53,26 @@ namespace NoventiqAssignment.Services
             return responseModel;
 
         }
+
+        public async Task<GenericResponseModel<StatusMessageReturnDTO>> BulkUpdatePricesAsync(decimal percentage)
+        {
+            try
+            {
+                var responseModel = new GenericResponseModel<StatusMessageReturnDTO>();
+                
+                string sql = "UPDATE Products SET Price = Price * {0}";
+                int affectedRows = await unitOfWork.Repository<Product>().ExecuteRawSqlAsync(sql, percentage);
+
+                
+                await unitOfWork.SaveChangesAsync();
+                responseModel.Data.Status = true;
+                return responseModel;
+            }
+            catch (Exception ex)
+            {
+                return GenericResponseModel<StatusMessageReturnDTO>.ErrorResponseForStatus(
+                    "Error updating product prices");
+            }
+        }
     }
 }

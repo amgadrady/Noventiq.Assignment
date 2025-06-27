@@ -31,7 +31,7 @@ namespace NoventiqAssignment.Services
             {
                 Subject = new ClaimsIdentity(claims),
 
-                Expires = DateTime.Now.AddMinutes(2),
+                Expires = DateTime.Now.AddHours(2),
                 SigningCredentials = creds
             };
 

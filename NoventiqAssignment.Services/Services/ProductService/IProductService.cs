@@ -6,5 +6,6 @@ namespace NoventiqAssignment.Services
     public interface IProductService
     {
         Task<GenericResponseModel<ProductDto>> GetProductByIdAsync(int id);
+        Task<GenericResponseModel<StatusMessageReturnDTO>> BulkUpdatePricesAsync(decimal percentage);
     }
 }

@@ -31,5 +31,10 @@ namespace NoventiqAssignment.Repository
                 query = query.AsTracking();
             return await query.AsSplitQuery().ToListAsync();
         }
+
+        public async Task<int> ExecuteRawSqlAsync(string sql, params object[] parameters)
+        {
+            return await noventiqContext.Database.ExecuteSqlRawAsync(sql, parameters);
+        }
     }
 }

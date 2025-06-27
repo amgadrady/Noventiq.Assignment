@@ -26,5 +26,15 @@ namespace NoventiqAssignment.API.Controllers
 
             return Ok(product);
         }
+
+        [HttpPut("{percentage}")]
+        public async Task<ActionResult<ProductDto>> UpdateProductsPrices(decimal percentage)
+        {
+            var product = await productService.BulkUpdatePricesAsync(percentage);
+            if (product.ErrorList.Any())
+                return BadRequest(product);
+
+            return Ok(product);
+        }
     }
 }

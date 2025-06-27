@@ -9,5 +9,7 @@ namespace NoventiqAssignment.Repository
      IList<Expression<Func<TEntity, bool>>> filters,
      List<Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>> include,
      bool enableTracking = false);
+
+        Task<int> ExecuteRawSqlAsync(string sql, params object[] parameters);
     }
 }
