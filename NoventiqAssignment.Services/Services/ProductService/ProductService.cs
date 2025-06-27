@@ -10,13 +10,12 @@ namespace NoventiqAssignment.Services
 {
     public class ProductService : IProductService
     {
-        private readonly NoventiqContext noventiqContext;
         private readonly IMultiLanguageService multiLanguageService;
         private readonly IUnitOfWork unitOfWork;
 
-        public ProductService(NoventiqContext noventiqContext, IMultiLanguageService multiLanguageService, IUnitOfWork unitOfWork)
+        public ProductService(IMultiLanguageService multiLanguageService, IUnitOfWork unitOfWork)
         {
-            this.noventiqContext = noventiqContext;
+
             this.multiLanguageService = multiLanguageService;
             this.unitOfWork = unitOfWork;
         }
